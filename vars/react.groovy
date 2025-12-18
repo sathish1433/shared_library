@@ -7,10 +7,18 @@ def call(Map config = [:]){
         def buildFiles=config.buildFiles
         
         if (stageName == "Build"){
-                sh """ scp -o StrictHostKeyChecking=no -r ${buildFiles} ${sshUser}@${sshIP}:/home/${sshUser}/ &&
-                        ssh -o StrictHostKeyChecking=no ${sshUser}@${sshIP} \
-                        "cd ${WORKSPACE} && docker build -t ${imageName}:${appVersion} ."
-                """
+                sh """
+                    ssh -o StrictHostKeyChecking=no ${sshUser}@${sshIP} \
+                    "mkdir -p /home/${sshUser}/${buildFiles}"
+                        
+                    rsync -avz \
+                    --delete \
+                    --exclude='.git' \
+                    --exclude='node_modules' \
+                    ${buildFiles}/ \
+                    ${sshUser}@${sshIP}:/home/${sshUser}/${buildFiles}/  &&
+                    docker build -t ${imageName}:${appVersion} .
+                    """
 
         }
         else if (stageName == "Push"){

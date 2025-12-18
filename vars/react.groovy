@@ -6,7 +6,7 @@ def call(Map config = [:]){
         def sshIP=config.sshIP
 
         if (stageName == "Build"){
-                sh """ scp -o StrictHostKeyChecking=no . ${sshUser}@${ssIP}:Downloads/ &&
+                sh """ scp -o StrictHostKeyChecking=no . ${sshUser}@${sshIP}:Downloads/ &&
                         ssh -o StrictHostKeyChecking=no ${sshUser}@${sshIP} \
                         "docker build -t ${imageName}:${appVersion} ."
                 """

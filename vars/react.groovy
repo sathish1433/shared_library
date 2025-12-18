@@ -9,7 +9,7 @@ def call(Map config = [:]){
         if (stageName == "Build"){
                 sh """ scp -o StrictHostKeyChecking=no -r ${buildFiles} ${sshUser}@${sshIP}:/home/${sshUser}/ &&
                         ssh -o StrictHostKeyChecking=no ${sshUser}@${sshIP} \
-                        "docker build -t ${imageName}:${appVersion} ."
+                        "cd ${WORKSPACE} && docker build -t ${imageName}:${appVersion} ."
                 """
 
         }

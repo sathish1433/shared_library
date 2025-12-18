@@ -7,7 +7,7 @@ def call(Map config = [:]){
 
         if (stageName == "Build"){
                 sh """ ssh -o StrictHostKeyChecking=no ${sshUser}@${sshIP} \
-                        "docker build -t ${imageName}:${appVersion}"
+                        "docker build -t ${imageName}:${appVersion} ."
                 """
 
         }

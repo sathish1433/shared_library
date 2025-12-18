@@ -6,14 +6,14 @@ def call(Map config = [:]){
         def sshIP=config.sshIP
 
         if (stageName == "Build"){
-                sh """ ssh -o strictHosyKeyChecking=no ${sshUser}@${sshIP} \
+                sh """ ssh -o StrictHostKeyChecking=no ${sshUser}@${sshIP} \
                         "docker build -t ${imageName}:${appVersion}"
                 """
 
         }
         else if (stageName == "Push"){
                 
-                sh """ssh -o strictHostKeyChecking=no ${sshUser}@${sshIP} \
+                sh """ssh -o StrictHostKeyChecking=no ${sshUser}@${sshIP} \
                         "docker push ${imageName}:${appVersion}"
                 """
         }

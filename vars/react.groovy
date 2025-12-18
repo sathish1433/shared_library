@@ -2,7 +2,7 @@ def call(Map config = [:]){
         def imageName=config.imageName
         def stageName=config.stageName
         def appVersion=config.appVersion ?: $env.BUILD_NUMBER
-        def sshUser=config.aahUser
+        def sshUser=config.sshUser
         def sshIP=config.sshIP
 
         if (stageName == "Build"){

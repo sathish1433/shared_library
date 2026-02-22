@@ -9,6 +9,6 @@ def call(Map config=[:]){
         sh """myenv/bin/pip install -r requirements.txt"""
     }
     else if (config.stageName == 'Deploy'){
-        sh """/usr/bin/python app.py"""
+        sh """myenv/bin/python app.py"""
     }
 }

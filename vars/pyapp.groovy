@@ -6,7 +6,7 @@ def call(Map config=[:]){
         sh """/usr/bin/python -m venv myenv && source myenv/bin/activate"""
     }
     else if ( config.stageName == 'package'){
-        sh """myenv/bin/pip -r requirements.txt"""
+        sh """myenv/bin/pip install -r requirements.txt"""
     }
     else if (config.stageName == 'Deploy'){
         sh """/user/bin/python app.py"""
